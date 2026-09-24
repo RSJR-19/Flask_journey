@@ -22,14 +22,23 @@ def profile():
     return f"Name: {name}\nCourse: {course}"
 
 #Post method
-@app.route("/friends", methods=['POST'])
-def friends():
-    age = request.form.get("age")
-    return f"Hello friend {age}!"
-
-@app.route("/cats", methods=["POST"])
+@app.route("/cats", methods=['POST'])
 def cats():
     name = request.form.get("name")
-    return f"Good Morning, {name}!"
+    return f"Hello, {name}!"
+
+#PUT
+@app.route("/student/<id>", methods=['PUT'])
+def update_student(id):
+    return f"Student {id} has been updated!"
+
+#PATCH 
+@app.route("/student/<id>", methods=['PATCH'])
+def patch_student(id):
+    return f"Student {id} has been partially updated!"
+
+@app.route("/student/<id>", methods=['DELETE'])
+def delete_student(id):
+    return f"Student {id} has been deleted!"
 
 app.run(debug=True)
