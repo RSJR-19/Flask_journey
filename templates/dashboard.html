@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <h1 style="text-align: center;">
+        STUDENT DASHBOARD
+    </h1>
+    <hr>
+    <h2>{{name}}</h2>
+    <h2>{{course}}</h2>
+    <h2>{{year}}</h2>
+    <h2>Subjects:</h2>
+    <ul>
+        {% for subject in subjects %}
+        <li>{{subject}}</li>
+        {% endfor %}
+    </ul>
+    {%if year == "2nd year" %}
+    <h2>Welcome to Second Year!!</h2>
+    {%else%}
+    <h2>Welcome to {{year}}!</h2>
+    {%endif%}
+</body>
+</html>
