@@ -52,7 +52,59 @@ def cats():
 
     return render_template("cats.html")
 
+pibbles = []
+@app.route("/pibble", methods=['GET', 'POST'])
+def pibble():
+    if request.method == "POST":
+        name = request.form.get("name")
+        color = request.form.get("color")
+        age = request.form.get("age")
 
+        if not age or not name or not color:
+            return jsonify({'error_message' : "Empty or missing fields"})
+
+        pibble_made = {
+            "name" : name,
+            "color" : color,
+            "age": int(age)
+        }
+
+        pibbles.append(pibble_made)
+
+        return jsonify(pibble_made)
+
+    return render_template("pibble.html")
+
+@app.route('/pibbles/<int:index>')
+def get_pibble(index):
+    try:
+        return jsonify(pibbles[int(index)])
+    except:
+        return jsonify({'error_detected': 'Invalid Value!'})
+
+@app.route('/pibbles')
+def get_all_pibble():
+    return jsonify(pibbles)
+
+
+@app.route('/pibbles/<int:index>', methods=['PUT'])
+def update_pibble(index):
+    new_name = request.form.get("name")
+    new_age = request.form.get("age")
+    new_color = request.form.get("color")
+
+    pibbles[index]["name"] = new_name
+    pibbles[index]["age"] = int(new_age)
+    pibbles[index]["color"] = new_color
+
+    return jsonify(pibbles[index])
+
+@app.route("/pibbles/<int:index>", methods=["DELETE"])
+def delete_pibble(index):
+    try:
+        return jsonify(pibbles.pop(index))
+    except:
+        return jsonify({'error_message' : 'Invalid pibble to be deleted'})
 
 
 app.run(debug=True)
