@@ -14,5 +14,19 @@ connection = mysql.connector.connect(
     database=os.getenv("DB_NAME")
 )
 
+cursor = connection.cursor()
 
-app.run(debug=True)
+cursor.execute("CREATE TABLE IF NOT EXISTS pets(id INT AUTO_INCREMENT PRIMARY KEY, name text, species text, age int, owner text)")
+
+connection.commit()
+
+
+cursor.execute("INSERT INTO pets(name, species, age, owner) VALUES ('mekus', 'cat', 4, 'renan');")
+
+connection.commit()
+
+cursor.execute("SELECT * FROM pets;")
+pets = cursor.fetchall()
+print(pets)
+
+app.run(debug=False)
