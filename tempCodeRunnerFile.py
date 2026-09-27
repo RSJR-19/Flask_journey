@@ -46,35 +46,5 @@ def display_one_student(index):
     except:
         return jsonify({'Error_message' : 'Student Not Found'})
 
-@app.route("/students/<int:index>", methods=['PUT'])
-def update_student(index):
-    new_name = request.form.get("name")
-    new_email = request.form.get("email")
-    new_course = request.form.get("course")
-    new_year = request.form.get("year")
-    new_password = request.form.get("password")
-
-    try:
-        if new_year:
-            new_year = int(new_year)
-        student = students[index]
-        student['name'] = new_name or student['name']
-        student['password'] = new_password or student['password']
-        student['email'] = new_email or student['email']
-        student['year'] = new_year or student['year']
-        student['course'] = new_course or student['course']
-
-        return jsonify(student)
-    except:
-        return jsonify({"Error_message": 'Student Not Found'})
-
-@app.route("/students/<int:index>", methods=["DELETE"])
-def delete_student(index):
-    try:
-        return jsonify(students.pop(index))
-    except:
-        return jsonify({'Error_message': 'Student Not Found'})
-    
-
 
 app.run(debug=True)
